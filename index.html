@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Notepad</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My Simple Notepad</h1>
+        <textarea id="notepad-content" placeholder="Start typing here..."></textarea>
+        <div class="buttons">
+            <button id="save-button">Save Note</button>
+            <button id="clear-button">Clear Note</button>
+        </div>
+        <div id="message-area" class="message"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const notepadContent = document.getElementById('notepad-content');
+            const saveButton = document.getElementById('save-button');
+            const clearButton = document.getElementById('clear-button');
+            const messageArea = document.getElementById('message-area');
+
+            // Load saved content from local storage
+            const savedContent = localStorage.getItem('notepadContent');
+            if (savedContent) {
+                notepadContent.value = savedContent;
+            }
+
+            // Save content to local storage
+            saveButton.addEventListener('click', () => {
+                localStorage.setItem('notepadContent', notepadContent.value);
+                showMessage('Note saved successfully!', 'success');
+            });
+
+            // Clear content
+            clearButton.addEventListener('click', () => {
+                notepadContent.value = '';
+                localStorage.removeItem('notepadContent');
+                showMessage('Note cleared!', 'info');
+            });
+
+            // Display messages
+            function showMessage(msg, type) {
+                messageArea.textContent = msg;
+                messageArea.className = `message ${type}`;
+                setTimeout(() => {
+                    messageArea.textContent = '';
+                    messageArea.className = 'message';
+                }, 3000); // Message disappears after 3 seconds
+            }
+        });
+    </script>
+</body>
+</html>
