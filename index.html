@@ -3,19 +3,375 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="public/manifest.json" />
+  <link rel="manifest" href="manifest.json" />
   <title>React Notepad PWA</title>
+  <style>
+    /* General Styling */
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 896px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* Dark and Light Mode */
+    body.light-mode {
+      background-color: #f9f9f9;
+      color: #1a1a1a;
+    }
+
+    body.dark-mode {
+      background-color: #1a1a1a;
+      color: #f9f9f9;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #d4af37;
+    }
+
+    header button {
+      padding: 0.5rem;
+      border-radius: 9999px;
+      border: 1px solid #d1d5db;
+    }
+
+    body.dark-mode header button {
+      border-color: #4b5563;
+    }
+
+    /* Tabs */
+    .tabs-container {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    .tab {
+      padding: 0.5rem 1rem;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tab.active {
+      background-color: #AED9E0;
+      color: black;
+    }
+
+    .tab:not(.active) {
+      background-color: #e5e7eb;
+    }
+
+    body.dark-mode .tab:not(.active) {
+      background-color: #374151;
+    }
+
+    .tab .delete-btn {
+      position: absolute;
+      top: -0.25rem;
+      right: -0.25rem;
+      font-size: 0.75rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    .add-tab-btn {
+      padding: 0.25rem 0.5rem;
+      background-color: #d4af37;
+      color: black;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .icon {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Editor */
+    #editor {
+      width: 100%;
+      min-height: 300px;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      font-size: 1rem;
+      border: 2px solid #d4af37;
+    }
+    
+    #editor:focus {
+        outline: none;
+    }
+
+    body.light-mode #editor {
+        background-color: #ffffff;
+    }
+
+    body.dark-mode #editor {
+        background-color: #2a2a2a;
+    }
+
+
+    /* Word Count */
+    .word-count {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      text-align: right;
+      font-style: italic;
+    }
+
+    /* Actions */
+    .actions {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .actions button {
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-weight: 500;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        border: none;
+    }
+
+    .save-btn {
+        background-color: #AED9E0;
+        color: #1a1a1a;
+    }
+    
+    .export-btn {
+        border: 1px solid #AED9E0;
+        color: #AED9E0;
+        background-color: transparent;
+    }
+
+  </style>
 </head>
-<body>
-  <div id="root"></div>
+<body class="light-mode">
+  <div id="root" class="container">
+    <header>
+      <h1>Notepad</h1>
+      <button id="theme-toggle" aria-label="Toggle Dark Mode">
+        </button>
+    </header>
 
-  <!-- Load React app -->
-  <script type="module" src="src/App.jsx"></script>
+    <div class="tabs-container" id="tabs-container">
+      </div>
+    
+    <div
+      id="editor"
+      contenteditable="true"
+      role="textbox"
+      aria-multiline="true"
+    ></div>
 
-  <!-- Register service worker -->
+    <div class="word-count" id="word-count">Word Count: 0</div>
+
+    <div class="actions">
+      <button id="save-btn" class="save-btn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+        Save Note
+      </button>
+      <button id="export-btn" class="export-btn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Export
+      </button>
+    </div>
+  </div>
+
   <script>
+    // --- Icons (from lucide-react) ---
+    const icons = {
+      sun: `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
+      moon: `<svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
+      filePlus: `<svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>`,
+      x: `<svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
+    };
+
+    // --- DOM Elements ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const editor = document.getElementById('editor');
+    const wordCountEl = document.getElementById('word-count');
+    const tabsContainer = document.getElementById('tabs-container');
+    const saveBtn = document.getElementById('save-btn');
+    const exportBtn = document.getElementById('export-btn');
+
+    // --- App State ---
+    let state = {
+      darkMode: false,
+      notes: [{ id: 1, content: "" }],
+      activeNoteIndex: 0,
+    };
+
+    // --- State Update and Rendering ---
+    function setState(newState) {
+      state = { ...state, ...newState };
+      render();
+    }
+
+    function render() {
+      // Render Theme
+      document.body.className = state.darkMode ? 'dark-mode' : 'light-mode';
+      themeToggle.innerHTML = state.darkMode ? icons.sun : icons.moon;
+      
+      // Render Editor Content
+      const activeNote = state.notes[state.activeNoteIndex];
+      if (document.activeElement !== editor) {
+        editor.innerText = activeNote ? activeNote.content : '';
+      }
+      
+      // Render Word Count
+      const text = activeNote ? activeNote.content.trim() : '';
+      const wordCount = text ? text.split(/\s+/).filter(Boolean).length : 0;
+      wordCountEl.textContent = `Word Count: ${wordCount}`;
+
+      // Render Tabs
+      tabsContainer.innerHTML = '';
+      state.notes.forEach((note, index) => {
+        const tab = document.createElement('div');
+        tab.className = 'tab';
+        if (index === state.activeNoteIndex) {
+          tab.classList.add('active');
+        }
+        tab.textContent = `Note ${index + 1}`;
+        tab.addEventListener('click', () => handleTabClick(index));
+        
+        if (state.notes.length > 1) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.innerHTML = icons.x;
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleDeleteNote(index);
+            });
+            tab.appendChild(deleteBtn);
+        }
+
+        tabsContainer.appendChild(tab);
+      });
+      
+      // Render Add Tab Button
+      const addTabBtn = document.createElement('button');
+      addTabBtn.className = 'add-tab-btn';
+      addTabBtn.innerHTML = icons.filePlus;
+      addTabBtn.addEventListener('click', handleAddNote);
+      tabsContainer.appendChild(addTabBtn);
+
+      // Save to localStorage
+      localStorage.setItem("notes", JSON.stringify(state.notes));
+    }
+
+    // --- Event Handlers ---
+    function handleThemeToggle() {
+      setState({ darkMode: !state.darkMode });
+    }
+
+    function handleTabClick(index) {
+      setState({ activeNoteIndex: index });
+    }
+
+    function handleEditorInput() {
+      const newContent = editor.innerText;
+      const newNotes = [...state.notes];
+      newNotes[state.activeNoteIndex].content = newContent;
+      setState({ notes: newNotes });
+    }
+    
+    function handleAddNote() {
+      const newNotes = [...state.notes, { id: Date.now(), content: "" }];
+      setState({ notes: newNotes, activeNoteIndex: newNotes.length - 1 });
+    }
+
+    function handleDeleteNote(index) {
+      const newNotes = state.notes.filter((_, i) => i !== index);
+      if (newNotes.length === 0) {
+        newNotes.push({ id: Date.now(), content: "" });
+      }
+      setState({
+          notes: newNotes,
+          activeNoteIndex: Math.min(state.activeNoteIndex, newNotes.length - 1)
+      });
+    }
+
+    function handleSaveNote() {
+      alert("Note saved!");
+    }
+
+    function handleExportNote() {
+      const content = state.notes[state.activeNoteIndex].content;
+      const blob = new Blob([content], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `note-${state.notes[state.activeNoteIndex].id}.txt`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+    
+    // --- Initialization ---
+    function init() {
+      // Event Listeners
+      themeToggle.addEventListener('click', handleThemeToggle);
+      editor.addEventListener('input', handleEditorInput);
+      saveBtn.addEventListener('click', handleSaveNote);
+      exportBtn.addEventListener('click', handleExportNote);
+
+      // Load from localStorage
+      const savedNotes = localStorage.getItem("notes");
+      if (savedNotes) {
+        state.notes = JSON.parse(savedNotes);
+      }
+      
+      // Set initial dark mode from system preference
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      state.darkMode = mq.matches;
+      mq.addEventListener("change", e => setState({darkMode: e.matches}));
+
+      // Initial Render
+      render();
+    }
+
+    init();
+
+    // Register service worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('src/service-worker.js');
+      navigator.serviceWorker.register('service-worker.js');
     }
   </script>
 </body>
