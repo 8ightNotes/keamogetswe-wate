@@ -27,6 +27,15 @@
         }
     </script>
     <style>
+        /*
+        * PROFESSIONAL FIT FIX
+        * Prevents horizontal scrolling/panning that occurs when elements (like absolute-positioned stickers or wave dividers)
+        * slightly exceed the viewport width. This ensures a perfect fit.
+        */
+        body {
+            overflow-x: hidden;
+        }
+
         /* Custom styles for video responsiveness */
         .video-container {
             position: relative;
