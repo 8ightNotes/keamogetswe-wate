@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>We're Thinking of You! - [Learner's Name]</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'primary': '#059669', // Emerald Green
-                        'secondary': '#facc15', // Amber Yellow
-                        'background-light': '#f0fdf4', // Light Green/White
+                        // New Theme Colors
+                        'bright-pink': '#FF69B4', // Hot Pink
+                        'light-blue': '#87CEFA',  // Light Sky Blue
+                        'white-bg': '#FFFFFF', // Pure White
+                        'text-dark': '#374151', // Dark Gray for contrast
                     },
                 },
                 fontFamily: {
-                    sans: ['Inter', 'sans-serif'],
+                    // Custom Fonts
+                    'header': ['Pacifico', 'cursive'],
+                    'body': ['Inter', 'sans-serif'],
                 },
             }
         }
@@ -30,6 +34,7 @@
             height: 0;
             overflow: hidden;
             border-radius: 0.75rem; /* rounded-xl */
+            border: 4px solid var(--tw-colors-light-blue); /* Light blue border for videos */
         }
         .video-container video {
             position: absolute;
@@ -38,116 +43,157 @@
             width: 100%;
             height: 100%;
         }
+
+        /* STICKER & VISUAL ELEMENTS */
+        .section-header {
+            position: relative;
+            display: inline-block;
+            padding: 0 10px;
+        }
+        /* Left sticker (Heart) */
+        .section-header::before {
+            content: '💖'; /* Pink Heart Sticker */
+            position: absolute;
+            left: -35px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-10deg);
+            font-size: 1.5rem;
+        }
+        /* Right sticker (Star) */
+        .section-header::after {
+            content: '🌟'; /* Star Sticker */
+            position: absolute;
+            right: -35px;
+            top: 50%;
+            transform: translateY(-50%) rotate(10deg);
+            font-size: 1.5rem;
+        }
+
+        /* Fun, Wavy Border for the Header Section */
+        .header-wave {
+            position: absolute;
+            bottom: -1px; /* Align with the bottom edge */
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg); /* Flip the wave to appear at the bottom */
+        }
+
+        .header-wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 50px; /* Adjust height as needed */
+        }
+
+        .header-wave .shape-fill {
+            fill: var(--tw-colors-white-bg);
+        }
     </style>
 </head>
-<body class="bg-background-light min-h-screen font-sans text-gray-800">
+<body class="bg-white-bg min-h-screen font-body text-text-dark">
 
-    <!-- Header Section -->
-    <header class="bg-primary text-white py-12 shadow-xl">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">
+    <header class="bg-bright-pink text-white py-12 shadow-2xl relative overflow-hidden">
+        <div class="container mx-auto px-6 text-center z-10 relative">
+            <h1 class="text-5xl sm:text-6xl font-header tracking-tight mb-4 animate-pulse">
                 Sending Our Biggest Wishes!
             </h1>
-            <p class="text-xl sm:text-2xl font-light opacity-90">
-                The whole classroom is thinking of you and wishing you a speedy recovery!
+            <p class="text-xl sm:text-2xl font-body font-light opacity-95">
+                The whole classroom is thinking of you and wishing you a **speedy recovery!**
             </p>
+        </div>
+
+        <div class="header-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.87-114.24,33.56-170.1,51.48-14.13,4.45-28.18,8.81-42.11,13.38-20.93,6.52-41.54,12.78-62.2,19.3-11.66,3.67-23.23,7.4-34.8,11.39C24.4,115.11,0,120,0,120V0H1200V120C1173.33,114.78,1147.19,109.52,1121.57,104.28c-23.51-4.83-47.5-9.31-71.91-11.45" class="shape-fill"></path>
+            </svg>
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <main class="container mx-auto px-4 py-10 sm:py-16">
 
-        <!-- Images Section -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-center mb-10 text-primary">
-                Photos from the Classroom
+        <section class="mb-20">
+            <h2 class="text-4xl font-extrabold text-center mb-12 text-light-blue">
+                <span class="section-header border-b-4 border-bright-pink pb-1">Photos from the Classroom</span>
             </h2>
 
-            <!-- Visible Images (1, 2, 3) -->
-            <div id="visible-images" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <!-- Image 1 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl">
-                    <img src="https://placehold.co/600x400/10b981/ffffff?text=image1.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover">
-                    <p class="p-4 text-center font-medium">Image 1: Wishing you well!</p>
+            <div id="visible-images" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:rotate-1">
+                    <img src="https://placehold.co/600x400/FF69B4/FFFFFF?text=Pic+1" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
+                    <p class="p-4 text-center font-bold text-bright-pink">Image 1: Wishing you well! 🎉</p>
                 </div>
-                <!-- Image 2 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl">
-                    <img src="https://placehold.co/600x400/059669/ffffff?text=image2.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover">
-                    <p class="p-4 text-center font-medium">Image 2: Can't wait for you back!</p>
+                <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:-rotate-1">
+                    <img src="https://placehold.co/600x400/87CEFA/FFFFFF?text=Pic+2" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
+                    <p class="p-4 text-center font-bold text-light-blue">Image 2: Can't wait for you back! 🥳</p>
                 </div>
-                <!-- Image 3 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl">
-                    <img src="https://placehold.co/600x400/065f46/ffffff?text=image3.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover">
-                    <p class="p-4 text-center font-medium">Image 3: Sending a virtual hug!</p>
+                <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:rotate-1">
+                    <img src="https://placehold.co/600x400/FF69B4/FFFFFF?text=Pic+3" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
+                    <p class="p-4 text-center font-bold text-bright-pink">Image 3: Sending a virtual hug! 🤗</p>
                 </div>
             </div>
 
-            <!-- Collapsible Section for Images 4-10 -->
-            <div id="hidden-images" class="grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-500 ease-in-out" style="display: none;">
-                <!-- Images 4-10 Placeholder Loop -->
+            <div id="hidden-images" class="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-700 ease-in-out" style="display: none;">
                 <script>
                     const hiddenImagesContainer = document.getElementById('hidden-images');
+                    const colors = [
+                        { bg: 'light-blue', text: 'bright-pink', border: 'bright-pink', icon: '🌈' },
+                        { bg: 'bright-pink', text: 'light-blue', border: 'light-blue', icon: '🎈' }
+                    ];
                     for (let i = 4; i <= 10; i++) {
                         const file = `image${i}.png`;
+                        const style = colors[i % 2]; // Alternate colors
                         const card = document.createElement('div');
-                        card.className = 'bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl';
+                        card.className = `bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-${style.border} transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl ${i % 2 === 0 ? 'hover:rotate-1' : 'hover:-rotate-1'}`;
                         card.innerHTML = `
-                            <img src="https://placehold.co/600x400/99f6e4/065f46?text=${file}" alt="Class photo placeholder" class="w-full h-48 object-cover">
-                            <p class="p-4 text-center font-medium">Image ${i}: Upload your ${file} here</p>
+                            <img src="https://placehold.co/600x400/${style.bg.toUpperCase()}/FFFFFF?text=${file}" alt="Class photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-${style.border}">
+                            <p class="p-4 text-center font-bold text-${style.text}">Image ${i}: Upload your ${file} here ${style.icon}</p>
                         `;
                         hiddenImagesContainer.appendChild(card);
                     }
                 </script>
             </div>
 
-            <!-- Toggle Button -->
-            <div class="text-center mt-8">
+            <div class="text-center mt-12">
                 <button id="toggle-button" onclick="toggleImages()"
-                    class="bg-secondary text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-opacity-50">
-                    Show 7 More Wishes
+                    class="bg-light-blue text-text-dark font-extrabold py-4 px-10 rounded-full shadow-2xl hover:bg-bright-pink hover:text-white transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-bright-pink focus:ring-opacity-50 text-lg border-4 border-light-blue hover:border-light-blue">
+                    Show 7 More Wishes ✨
                 </button>
             </div>
         </section>
 
-        <hr class="my-16 border-gray-300">
+        <hr class="my-20 border-light-blue border-4 border-dashed rounded-full">
 
-        <!-- Videos Section -->
         <section>
-            <h2 class="text-3xl font-bold text-center mb-10 text-primary">
-                Video Messages & Fun
+            <h2 class="text-4xl font-extrabold text-center mb-12 text-bright-pink">
+                <span class="section-header border-b-4 border-light-blue pb-1">Video Messages & Fun</span>
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Video 1 -->
-                <div class="bg-white rounded-xl shadow-lg p-4">
-                    <p class="text-center font-semibold mb-3">Video 1: Get Well Message</p>
+                <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-light-blue transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
+                    <p class="text-center font-extrabold mb-3 text-light-blue text-xl">Video 1: Get Well Message 💌</p>
                     <div class="video-container">
-                        <!-- REPLACE the 'src' attribute with your actual video1.mp4 path -->
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/d1fae5/065f46?text=video1.mp4+Placeholder">
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/FF69B4/FFFFFF?text=video1.mp4+Placeholder">
                             <source src="video1.mp4" type="video/mp4">
                             Your browser does not support the video tag. Please upload video1.mp4.
                         </video>
                     </div>
                 </div>
 
-                <!-- Video 2 -->
-                <div class="bg-white rounded-xl shadow-lg p-4">
-                    <p class="text-center font-semibold mb-3">Video 2: Class Fun</p>
-                    <div class="video-container">
-                        <!-- REPLACE the 'src' attribute with your actual video2.mp4 path -->
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/a7f3d0/065f46?text=video2.mp4+Placeholder">
+                <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
+                    <p class="text-center font-extrabold mb-3 text-bright-pink text-xl">Video 2: Class Fun 🤸</p>
+                    <div class="video-container" style="border-color: var(--tw-colors-bright-pink);">
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/87CEFA/FFFFFF?text=video2.mp4+Placeholder">
                             <source src="video2.mp4" type="video/mp4">
                             Your browser does not support the video tag. Please upload video2.mp4.
                         </video>
                     </div>
                 </div>
 
-                <!-- Video 3 -->
-                <div class="bg-white rounded-xl shadow-lg p-4">
-                    <p class="text-center font-semibold mb-3">Video 3: Teacher's Note</p>
+                <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-light-blue transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
+                    <p class="text-center font-extrabold mb-3 text-light-blue text-xl">Video 3: Teacher's Note 🍎</p>
                     <div class="video-container">
-                        <!-- REPLACE the 'src' attribute with your actual video3.mp4 path -->
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/6ee7b7/065f46?text=video3.mp4+Placeholder">
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/FF69B4/FFFFFF?text=video3.mp4+Placeholder">
                             <source src="video3.mp4" type="video/mp4">
                             Your browser does not support the video tag. Please upload video3.mp4.
                         </video>
@@ -157,12 +203,10 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-primary text-white mt-10 py-6 text-center">
-        <p class="text-sm">We miss you!</p>
+    <footer class="bg-bright-pink text-white mt-20 py-8 text-center shadow-inner">
+        <p class="text-lg font-bold">We miss you! Get better soon! 💖🌟</p>
     </footer>
 
-    <!-- JavaScript for Collapsible Feature -->
     <script>
         /**
          * Toggles the visibility of the hidden images section.
@@ -173,46 +217,19 @@
             const isHidden = hiddenImages.style.display === 'none' || hiddenImages.style.display === '';
 
             if (isHidden) {
+                // Show the images
                 hiddenImages.style.display = 'grid';
-                button.textContent = 'Hide Extra Wishes';
+                button.textContent = 'Hide Extra Wishes 🙈';
+                // Optional: Scroll to the revealed section
+                hiddenImages.scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else {
+                // Hide the images
                 hiddenImages.style.display = 'none';
-                button.textContent = 'Show 7 More Wishes';
+                button.textContent = 'Show 7 More Wishes ✨';
+                // Optional: Scroll back up to the button
+                button.scrollIntoView({ behavior: 'smooth', block: 'end' });
             }
         }
     </script>
-</body>
-</html>
-
-// --- Initialization ---
-    function init() {
-      // Event Listeners
-      themeToggle.addEventListener('click', handleThemeToggle);
-      editor.addEventListener('input', handleEditorInput);
-      saveBtn.addEventListener('click', handleSaveNote);
-      exportBtn.addEventListener('click', handleExportNote);
-
-      // Load from localStorage
-      const savedNotes = localStorage.getItem("notes");
-      if (savedNotes) {
-        state.notes = JSON.parse(savedNotes);
-      }
-      
-      // Set initial dark mode from system preference
-      const mq = window.matchMedia("(prefers-color-scheme: dark)");
-      state.darkMode = mq.matches;
-      mq.addEventListener("change", e => setState({darkMode: e.matches}));
-
-      // Initial Render
-      render();
-    }
-
-    init();
-
-    // Register service worker
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-  </script>
 </body>
 </html>
