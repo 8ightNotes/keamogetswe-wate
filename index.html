@@ -1,350 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="manifest.json" />
-  <title>React Notepad PWA</title>
-  <style>
-    /* General Styling */
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .container {
-      max-width: 896px;
-      margin: 0 auto;
-      padding: 1.5rem;
-    }
-
-    /* Dark and Light Mode */
-    body.light-mode {
-      background-color: #f9f9f9;
-      color: #1a1a1a;
-    }
-
-    body.dark-mode {
-      background-color: #1a1a1a;
-      color: #f9f9f9;
-    }
-
-    /* Header */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    header h1 {
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: #d4af37;
-    }
-
-    header button {
-      padding: 0.5rem;
-      border-radius: 9999px;
-      border: 1px solid #d1d5db;
-    }
-
-    body.dark-mode header button {
-      border-color: #4b5563;
-    }
-
-    /* Tabs */
-    .tabs-container {
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      margin-bottom: 1rem;
-    }
-
-    .tab {
-      padding: 0.5rem 1rem;
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .tab.active {
-      background-color: #AED9E0;
-      color: black;
-    }
-
-    .tab:not(.active) {
-      background-color: #e5e7eb;
-    }
-
-    body.dark-mode .tab:not(.active) {
-      background-color: #374151;
-    }
-
-    .tab .delete-btn {
-      position: absolute;
-      top: -0.25rem;
-      right: -0.25rem;
-      font-size: 0.75rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: inherit;
-    }
-
-    .add-tab-btn {
-      padding: 0.25rem 0.5rem;
-      background-color: #d4af37;
-      color: black;
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
-      font-size: 0.875rem;
-      border: none;
-      cursor: pointer;
-    }
-    
-    .icon {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* Editor */
-    #editor {
-      width: 100%;
-      min-height: 300px;
-      padding: 1rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      font-size: 1rem;
-      border: 2px solid #d4af37;
-    }
-    
-    #editor:focus {
-        outline: none;
-    }
-
-    body.light-mode #editor {
-        background-color: #ffffff;
-    }
-
-    body.dark-mode #editor {
-        background-color: #2a2a2a;
-    }
-
-
-    /* Word Count */
-    .word-count {
-      margin-top: 1rem;
-      font-size: 0.875rem;
-      text-align: right;
-      font-style: italic;
-    }
-
-    /* Actions */
-    .actions {
-      margin-top: 1.5rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    
-    .actions button {
-        padding: 0.5rem 1rem;
-        border-radius: 1rem;
-        font-weight: 500;
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        cursor: pointer;
-        border: none;
-    }
-
-    .save-btn {
-        background-color: #AED9E0;
-        color: #1a1a1a;
-    }
-    
-    .export-btn {
-        border: 1px solid #AED9E0;
-        color: #AED9E0;
-        background-color: transparent;
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We're Thinking of You! - [Learner's Name]</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#059669', // Emerald Green
+                        'secondary': '#facc15', // Amber Yellow
+                        'background-light': '#f0fdf4', // Light Green/White
+                    },
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                },
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for video responsiveness */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
-<body class="light-mode">
-  <div id="root" class="container">
-    <header>
-      <h1>Notepad</h1>
-      <button id="theme-toggle" aria-label="Toggle Dark Mode">
-        </button>
+<body class="bg-background-light min-h-screen font-sans text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-primary text-white py-12 shadow-xl">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-2">
+                Sending Our Biggest Wishes!
+            </h1>
+            <p class="text-xl sm:text-2xl font-light opacity-90">
+                The whole classroom is thinking of you and wishing you a speedy recovery!
+            </p>
+        </div>
     </header>
 
-    <div class="tabs-container" id="tabs-container">
-      </div>
-    
-    <div
-      id="editor"
-      contenteditable="true"
-      role="textbox"
-      aria-multiline="true"
-    ></div>
+    <!-- Main Content Container -->
+    <main class="container mx-auto px-4 py-10 sm:py-16">
 
-    <div class="word-count" id="word-count">Word Count: 0</div>
+        <!-- Images Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-10 text-primary">
+                Photos from the Classroom
+            </h2>
 
-    <div class="actions">
-      <button id="save-btn" class="save-btn">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-        Save Note
-      </button>
-      <button id="export-btn" class="export-btn">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Export
-      </button>
-    </div>
-  </div>
+            <!-- Visible Images (1, 2, 3) -->
+            <div id="visible-images" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <!-- Image 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl">
+                    <img src="https://placehold.co/600x400/10b981/ffffff?text=image1.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover">
+                    <p class="p-4 text-center font-medium">Image 1: Wishing you well!</p>
+                </div>
+                <!-- Image 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl">
+                    <img src="https://placehold.co/600x400/059669/ffffff?text=image2.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover">
+                    <p class="p-4 text-center font-medium">Image 2: Can't wait for you back!</p>
+                </div>
+                <!-- Image 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl">
+                    <img src="https://placehold.co/600x400/065f46/ffffff?text=image3.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover">
+                    <p class="p-4 text-center font-medium">Image 3: Sending a virtual hug!</p>
+                </div>
+            </div>
 
-  <script>
-    // --- Icons (from lucide-react) ---
-    const icons = {
-      sun: `<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
-      moon: `<svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
-      filePlus: `<svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>`,
-      x: `<svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
-    };
+            <!-- Collapsible Section for Images 4-10 -->
+            <div id="hidden-images" class="grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-500 ease-in-out" style="display: none;">
+                <!-- Images 4-10 Placeholder Loop -->
+                <script>
+                    const hiddenImagesContainer = document.getElementById('hidden-images');
+                    for (let i = 4; i <= 10; i++) {
+                        const file = `image${i}.png`;
+                        const card = document.createElement('div');
+                        card.className = 'bg-white rounded-xl shadow-lg overflow-hidden transition duration-300 hover:shadow-2xl';
+                        card.innerHTML = `
+                            <img src="https://placehold.co/600x400/99f6e4/065f46?text=${file}" alt="Class photo placeholder" class="w-full h-48 object-cover">
+                            <p class="p-4 text-center font-medium">Image ${i}: Upload your ${file} here</p>
+                        `;
+                        hiddenImagesContainer.appendChild(card);
+                    }
+                </script>
+            </div>
 
-    // --- DOM Elements ---
-    const themeToggle = document.getElementById('theme-toggle');
-    const editor = document.getElementById('editor');
-    const wordCountEl = document.getElementById('word-count');
-    const tabsContainer = document.getElementById('tabs-container');
-    const saveBtn = document.getElementById('save-btn');
-    const exportBtn = document.getElementById('export-btn');
+            <!-- Toggle Button -->
+            <div class="text-center mt-8">
+                <button id="toggle-button" onclick="toggleImages()"
+                    class="bg-secondary text-gray-900 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-opacity-50">
+                    Show 7 More Wishes
+                </button>
+            </div>
+        </section>
 
-    // --- App State ---
-    let state = {
-      darkMode: false,
-      notes: [{ id: 1, content: "" }],
-      activeNoteIndex: 0,
-    };
+        <hr class="my-16 border-gray-300">
 
-    // --- State Update and Rendering ---
-    function setState(newState) {
-      state = { ...state, ...newState };
-      render();
-    }
+        <!-- Videos Section -->
+        <section>
+            <h2 class="text-3xl font-bold text-center mb-10 text-primary">
+                Video Messages & Fun
+            </h2>
 
-    function render() {
-      // Render Theme
-      document.body.className = state.darkMode ? 'dark-mode' : 'light-mode';
-      themeToggle.innerHTML = state.darkMode ? icons.sun : icons.moon;
-      
-      // Render Editor Content
-      const activeNote = state.notes[state.activeNoteIndex];
-      if (document.activeElement !== editor) {
-        editor.innerText = activeNote ? activeNote.content : '';
-      }
-      
-      // Render Word Count
-      const text = activeNote ? activeNote.content.trim() : '';
-      const wordCount = text ? text.split(/\s+/).filter(Boolean).length : 0;
-      wordCountEl.textContent = `Word Count: ${wordCount}`;
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Video 1 -->
+                <div class="bg-white rounded-xl shadow-lg p-4">
+                    <p class="text-center font-semibold mb-3">Video 1: Get Well Message</p>
+                    <div class="video-container">
+                        <!-- REPLACE the 'src' attribute with your actual video1.mp4 path -->
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/d1fae5/065f46?text=video1.mp4+Placeholder">
+                            <source src="video1.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Please upload video1.mp4.
+                        </video>
+                    </div>
+                </div>
 
-      // Render Tabs
-      tabsContainer.innerHTML = '';
-      state.notes.forEach((note, index) => {
-        const tab = document.createElement('div');
-        tab.className = 'tab';
-        if (index === state.activeNoteIndex) {
-          tab.classList.add('active');
+                <!-- Video 2 -->
+                <div class="bg-white rounded-xl shadow-lg p-4">
+                    <p class="text-center font-semibold mb-3">Video 2: Class Fun</p>
+                    <div class="video-container">
+                        <!-- REPLACE the 'src' attribute with your actual video2.mp4 path -->
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/a7f3d0/065f46?text=video2.mp4+Placeholder">
+                            <source src="video2.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Please upload video2.mp4.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="bg-white rounded-xl shadow-lg p-4">
+                    <p class="text-center font-semibold mb-3">Video 3: Teacher's Note</p>
+                    <div class="video-container">
+                        <!-- REPLACE the 'src' attribute with your actual video3.mp4 path -->
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/6ee7b7/065f46?text=video3.mp4+Placeholder">
+                            <source src="video3.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Please upload video3.mp4.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white mt-10 py-6 text-center">
+        <p class="text-sm">We miss you!</p>
+    </footer>
+
+    <!-- JavaScript for Collapsible Feature -->
+    <script>
+        /**
+         * Toggles the visibility of the hidden images section.
+         */
+        function toggleImages() {
+            const hiddenImages = document.getElementById('hidden-images');
+            const button = document.getElementById('toggle-button');
+            const isHidden = hiddenImages.style.display === 'none' || hiddenImages.style.display === '';
+
+            if (isHidden) {
+                hiddenImages.style.display = 'grid';
+                button.textContent = 'Hide Extra Wishes';
+            } else {
+                hiddenImages.style.display = 'none';
+                button.textContent = 'Show 7 More Wishes';
+            }
         }
-        tab.textContent = `Note ${index + 1}`;
-        tab.addEventListener('click', () => handleTabClick(index));
-        
-        if (state.notes.length > 1) {
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'delete-btn';
-            deleteBtn.innerHTML = icons.x;
-            deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                handleDeleteNote(index);
-            });
-            tab.appendChild(deleteBtn);
-        }
+    </script>
+</body>
+</html>
 
-        tabsContainer.appendChild(tab);
-      });
-      
-      // Render Add Tab Button
-      const addTabBtn = document.createElement('button');
-      addTabBtn.className = 'add-tab-btn';
-      addTabBtn.innerHTML = icons.filePlus;
-      addTabBtn.addEventListener('click', handleAddNote);
-      tabsContainer.appendChild(addTabBtn);
-
-      // Save to localStorage
-      localStorage.setItem("notes", JSON.stringify(state.notes));
-    }
-
-    // --- Event Handlers ---
-    function handleThemeToggle() {
-      setState({ darkMode: !state.darkMode });
-    }
-
-    function handleTabClick(index) {
-      setState({ activeNoteIndex: index });
-    }
-
-    function handleEditorInput() {
-      const newContent = editor.innerText;
-      const newNotes = [...state.notes];
-      newNotes[state.activeNoteIndex].content = newContent;
-      setState({ notes: newNotes });
-    }
-    
-    function handleAddNote() {
-      const newNotes = [...state.notes, { id: Date.now(), content: "" }];
-      setState({ notes: newNotes, activeNoteIndex: newNotes.length - 1 });
-    }
-
-    function handleDeleteNote(index) {
-      const newNotes = state.notes.filter((_, i) => i !== index);
-      if (newNotes.length === 0) {
-        newNotes.push({ id: Date.now(), content: "" });
-      }
-      setState({
-          notes: newNotes,
-          activeNoteIndex: Math.min(state.activeNoteIndex, newNotes.length - 1)
-      });
-    }
-
-    function handleSaveNote() {
-      alert("Note saved!");
-    }
-
-    function handleExportNote() {
-      const content = state.notes[state.activeNoteIndex].content;
-      const blob = new Blob([content], { type: "text/plain" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `note-${state.notes[state.activeNoteIndex].id}.txt`;
-      a.click();
-      URL.revokeObjectURL(a.href);
-    }
-    
-    // --- Initialization ---
+// --- Initialization ---
     function init() {
       // Event Listeners
       themeToggle.addEventListener('click', handleThemeToggle);
