@@ -29,11 +29,12 @@
     <style>
         /*
         * PROFESSIONAL FIT FIX
-        * Prevents horizontal scrolling/panning that occurs when elements (like absolute-positioned stickers or wave dividers)
-        * slightly exceed the viewport width. This ensures a perfect fit.
+        * Enhanced overflow handling and ensured viewport constraint
         */
         body {
             overflow-x: hidden;
+            max-width: 100vw;
+            box-sizing: border-box;
         }
 
         /* Custom styles for video responsiveness */
@@ -57,22 +58,23 @@
         .section-header {
             position: relative;
             display: inline-block;
-            padding: 0 10px;
+            /* Increase padding to give absolute stickers more room without causing overflow */
+            padding: 0 15px; 
         }
-        /* Left sticker (Heart) */
+        /* Left sticker (Heart) - Adjusted position to prevent cutoff */
         .section-header::before {
-            content: '💖'; /* Pink Heart Sticker */
+            content: '💖'; 
             position: absolute;
-            left: -35px;
+            left: -1.8em; /* Adjusted closer */
             top: 50%;
             transform: translateY(-50%) rotate(-10deg);
             font-size: 1.5rem;
         }
-        /* Right sticker (Star) */
+        /* Right sticker (Star) - Adjusted position to prevent cutoff */
         .section-header::after {
-            content: '🌟'; /* Star Sticker */
+            content: '🌟'; 
             position: absolute;
-            right: -35px;
+            right: -1.8em; /* Adjusted closer */
             top: 50%;
             transform: translateY(-50%) rotate(10deg);
             font-size: 1.5rem;
@@ -81,19 +83,19 @@
         /* Fun, Wavy Border for the Header Section */
         .header-wave {
             position: absolute;
-            bottom: -1px; /* Align with the bottom edge */
+            bottom: -1px; 
             left: 0;
             width: 100%;
-            overflow: hidden;
+            overflow: hidden; /* Added overflow hidden here for local cleanup */
             line-height: 0;
-            transform: rotate(180deg); /* Flip the wave to appear at the bottom */
+            transform: rotate(180deg);
         }
 
         .header-wave svg {
             position: relative;
             display: block;
             width: calc(100% + 1.3px);
-            height: 50px; /* Adjust height as needed */
+            height: 50px; 
         }
 
         .header-wave .shape-fill {
@@ -129,15 +131,15 @@
 
             <div id="visible-images" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                 <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:rotate-1">
-                    <img src="https://placehold.co/600x400/FF69B4/FFFFFF?text=Pic+1" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
+                    <img src="image1.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
                     <p class="p-4 text-center font-bold text-bright-pink">Image 1: Wishing you well! 🎉</p>
                 </div>
                 <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:-rotate-1">
-                    <img src="https://placehold.co/600x400/87CEFA/FFFFFF?text=Pic+2" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
+                    <img src="image2.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
                     <p class="p-4 text-center font-bold text-light-blue">Image 2: Can't wait for you back! 🥳</p>
                 </div>
                 <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:rotate-1">
-                    <img src="https://placehold.co/600x400/FF69B4/FFFFFF?text=Pic+3" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
+                    <img src="image3.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
                     <p class="p-4 text-center font-bold text-bright-pink">Image 3: Sending a virtual hug! 🤗</p>
                 </div>
             </div>
@@ -155,7 +157,7 @@
                         const card = document.createElement('div');
                         card.className = `bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-${style.border} transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl ${i % 2 === 0 ? 'hover:rotate-1' : 'hover:-rotate-1'}`;
                         card.innerHTML = `
-                            <img src="https://placehold.co/600x400/${style.bg.toUpperCase()}/FFFFFF?text=${file}" alt="Class photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-${style.border}">
+                            <img src="${file}" alt="Class photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-${style.border}">
                             <p class="p-4 text-center font-bold text-${style.text}">Image ${i}: Upload your ${file} here ${style.icon}</p>
                         `;
                         hiddenImagesContainer.appendChild(card);
@@ -182,7 +184,7 @@
                 <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-light-blue transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
                     <p class="text-center font-extrabold mb-3 text-light-blue text-xl">Video 1: Get Well Message 💌</p>
                     <div class="video-container">
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/FF69B4/FFFFFF?text=video1.mp4+Placeholder">
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/FF69B4/FFFFFF">
                             <source src="video1.mp4" type="video/mp4">
                             Your browser does not support the video tag. Please upload video1.mp4.
                         </video>
@@ -192,7 +194,7 @@
                 <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
                     <p class="text-center font-extrabold mb-3 text-bright-pink text-xl">Video 2: Class Fun 🤸</p>
                     <div class="video-container" style="border-color: var(--tw-colors-bright-pink);">
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/87CEFA/FFFFFF?text=video2.mp4+Placeholder">
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/87CEFA/FFFFFF">
                             <source src="video2.mp4" type="video/mp4">
                             Your browser does not support the video tag. Please upload video2.mp4.
                         </video>
@@ -202,7 +204,7 @@
                 <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-light-blue transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
                     <p class="text-center font-extrabold mb-3 text-light-blue text-xl">Video 3: Teacher's Note 🍎</p>
                     <div class="video-container">
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/FF69B4/FFFFFF?text=video3.mp4+Placeholder">
+                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/FF69B4/FFFFFF">
                             <source src="video3.mp4" type="video/mp4">
                             Your browser does not support the video tag. Please upload video3.mp4.
                         </video>
