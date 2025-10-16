@@ -21,6 +21,8 @@
                 fontFamily: {
                     // Custom Fonts
                     'header': ['Pacifico', 'cursive'],
+                    // Added a custom font for the header and fallback to Georgia/serif
+                    'main-header': ['Cambria', 'Georgia', 'serif'], 
                     'body': ['Inter', 'sans-serif'],
                 },
             }
@@ -102,13 +104,18 @@
         .header-wave .shape-fill {
             fill: var(--tw-colors-white-bg);
         }
+        
+        /* Fallback for Cambria font if system doesn't have it */
+        .font-cambria {
+            font-family: Cambria, Georgia, serif;
+        }
     </style>
 </head>
 <body class="bg-white-bg min-h-screen font-body text-text-dark">
 
     <header class="bg-bright-pink text-white py-12 shadow-2xl relative overflow-hidden">
         <div class="container mx-auto px-6 text-center z-10 relative">
-            <h1 class="text-5xl sm:text-6xl font-header tracking-tight mb-4 animate-pulse">
+            <h1 class="text-3xl sm:text-4xl font-main-header tracking-tight mb-4 text-center">
                 KEAMOGETSWE WATE, WE ARE SENDING YOU OUR BIGGEST WISHES
             </h1>
             <p class="text-xl sm:text-2xl font-body font-light opacity-95">
