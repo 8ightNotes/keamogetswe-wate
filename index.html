@@ -1,251 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We Miss You Keamogetswe</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // New Theme Colors
-                        'bright-pink': '#FF69B4', // Hot Pink
-                        'light-blue': '#87CEFA',  // Light Sky Blue
-                        'white-bg': '#FFFFFF', // Pure White
-                        'text-dark': '#374151', // Dark Gray for contrast
-                    },
-                },
-                fontFamily: {
-                    // Custom Fonts
-                    'header': ['Pacifico', 'cursive'],
-                    // Added a custom font for the header and fallback to Georgia/serif
-                    'main-header': ['Cambria', 'Georgia', 'serif'], 
-                    'body': ['Inter', 'sans-serif'],
-                },
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>We Miss You Keamogetswe 💖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'bright-pink': '#FF69B4',
+            'light-blue': '#AED9E0',
+            'soft-white': '#fffafc',
+            'deep-blue': '#1e3a8a',
+          },
+          fontFamily: {
+            'header': ['Pacifico', 'cursive'],
+            'body': ['Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'glow': '0 0 25px rgba(255, 182, 193, 0.6)',
+          },
         }
-    </script>
-    <style>
-        /*
-        * PROFESSIONAL FIT FIX
-        * Enhanced overflow handling and ensured viewport constraint
-        */
-        body {
-            overflow-x: hidden;
-            max-width: 100vw;
-            box-sizing: border-box;
-        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #fff0f7, #fdfaff 40%, #e0f7ff);
+      overflow-x: hidden;
+    }
 
-        /* Custom styles for video responsiveness */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 0.75rem; /* rounded-xl */
-            border: 4px solid var(--tw-colors-light-blue); /* Light blue border for videos */
-        }
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+    /* Floating hearts */
+    .floating-heart {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.7;
+      animation: float 6s ease-in-out infinite;
+    }
 
-        /* STICKER & VISUAL ELEMENTS */
-        .section-header {
-            position: relative;
-            display: inline-block;
-            /* Increase padding to give absolute stickers more room without causing overflow */
-            padding: 0 15px; 
-        }
-        /* Left sticker (Heart) - Adjusted position to prevent cutoff */
-        .section-header::before {
-            content: '💖'; 
-            position: absolute;
-            left: -1.8em; /* Adjusted closer */
-            top: 50%;
-            transform: translateY(-50%) rotate(-10deg);
-            font-size: 1.5rem;
-        }
-        /* Right sticker (Star) - Adjusted position to prevent cutoff */
-        .section-header::after {
-            /* Kept empty as per previous request */
-            content: ''; 
-            position: absolute;
-            right: -1.8em; /* Adjusted closer */
-            top: 50%;
-            transform: translateY(-50%) rotate(10deg);
-            font-size: 1.5rem;
-        }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      50% { transform: translateY(-40px) rotate(10deg); opacity: 1; }
+      100% { transform: translateY(0) rotate(-10deg); opacity: 0.8; }
+    }
 
-        /* Fun, Wavy Border for the Header Section */
-        .header-wave {
-            position: absolute;
-            bottom: -1px; 
-            left: 0;
-            width: 100%;
-            overflow: hidden; 
-            line-height: 0;
-            transform: rotate(180deg);
-        }
+    /* Glassy card */
+    .glass {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
 
-        .header-wave svg {
-            position: relative;
-            display: block;
-            width: calc(100% + 1.3px);
-            height: 50px; 
-        }
+    /* Soft fade-in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease forwards;
+    }
 
-        .header-wave .shape-fill {
-            fill: var(--tw-colors-white-bg);
-        }
-        
-        /* Fallback for Cambria font if system doesn't have it */
-        .font-cambria {
-            font-family: Cambria, Georgia, serif;
-        }
-    </style>
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Floating icons gently moving */
+    .floaty {
+      animation: gentleFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
 </head>
-<body class="bg-white-bg min-h-screen font-body text-text-dark">
+<body class="font-body text-gray-800 relative overflow-x-hidden">
 
-    <header class="bg-bright-pink text-white py-12 shadow-2xl relative overflow-hidden">
-        <div class="container mx-auto px-6 text-center z-10 relative">
-            <h1 class="text-3xl sm:text-4xl font-main-header tracking-tight mb-4 text-center">
-                KEAMOGETSWE WATE, WE ARE SENDING YOU OUR BIGGEST WISHES
-            </h1>
-            <p class="text-xl sm:text-2xl font-body font-light opacity-95">
-                The whole classroom is thinking of you and wishing you a **speedy recovery!**
-            </p>
+  <!-- Animated Background Decorations -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="floating-heart left-10 top-20 text-pink-400">💖</div>
+    <div class="floating-heart right-12 top-32 text-blue-300">🌈</div>
+    <div class="floating-heart left-1/3 bottom-10 text-pink-300">💞</div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative text-center py-20 bg-gradient-to-r from-bright-pink via-light-blue to-bright-pink text-white shadow-2xl">
+    <h1 class="text-5xl sm:text-6xl font-header mb-6 drop-shadow-lg fade-in">
+      We Miss You, Keamogetswe 💖
+    </h1>
+    <p class="text-xl sm:text-2xl opacity-90 font-light fade-in">
+      The whole classroom is thinking of you and wishing you a <span class="font-bold">speedy recovery!</span> 🌸
+    </p>
+    <div class="absolute bottom-0 w-full overflow-hidden leading-none rotate-180">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-16">
+        <path d="M321.39 56.44C202.63 80.93 93.86 114.91 0 120V0h1200v27.35c-104.84 14.37-218.5 47.29-321.39 56.44C635.62 96.57 469.43 31.93 321.39 56.44z" fill="#fff"></path>
+      </svg>
+    </div>
+  </header>
+
+  <main class="relative container mx-auto px-6 py-20">
+
+    <!-- Photos Section -->
+    <section class="mb-24 fade-in">
+      <h2 class="text-4xl sm:text-5xl font-extrabold text-center text-bright-pink mb-14">
+        <span class="inline-block relative">📸 Photos from the Classroom</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:shadow-2xl hover:rotate-1">
+          <img src="image1.png" class="rounded-2xl w-full h-56 object-cover border-4 border-light-blue">
+          <p class="text-center mt-4 text-bright-pink font-bold text-lg">Image 1: Wishing you well! 🎉</p>
         </div>
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:shadow-2xl hover:-rotate-1">
+          <img src="image2.png" class="rounded-2xl w-full h-56 object-cover border-4 border-bright-pink">
+          <p class="text-center mt-4 text-light-blue font-bold text-lg">Image 2: Can’t wait for you back! 🥳</p>
+        </div>
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:shadow-2xl hover:rotate-1">
+          <img src="image3.png" class="rounded-2xl w-full h-56 object-cover border-4 border-light-blue">
+          <p class="text-center mt-4 text-bright-pink font-bold text-lg">Image 3: Sending a virtual hug! 🤗</p>
+        </div>
+      </div>
 
-        </header>
+      <div class="text-center mt-14">
+        <button id="toggle-button"
+          onclick="toggleImages()"
+          class="bg-gradient-to-r from-light-blue to-bright-pink text-white font-bold py-4 px-10 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-110 transition duration-300 border-2 border-white">
+          Show 7 More Wishes ✨
+        </button>
+      </div>
+    </section>
 
-    <main class="container mx-auto px-4 py-10 sm:py-16">
+    <!-- Video Section -->
+    <section class="fade-in">
+      <h2 class="text-4xl sm:text-5xl font-extrabold text-center text-light-blue mb-14">
+        <span class="inline-block relative">🎥 Video Messages & Fun</span>
+      </h2>
 
-        <section class="mb-20">
-            <h2 class="text-4xl font-extrabold text-center mb-12 text-light-blue">
-                <span class="section-header border-b-4 border-bright-pink pb-1">Photos from the Classroom</span>
-            </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105">
+          <p class="text-center font-extrabold mb-4 text-light-blue text-xl">Video 1: Get Well Message 💌</p>
+          <video controls class="rounded-xl w-full border-4 border-bright-pink" poster="https://placehold.co/600x337/FF69B4/FFFFFF">
+            <source src="video1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105">
+          <p class="text-center font-extrabold mb-4 text-bright-pink text-xl">Video 2: Class Fun 🤸</p>
+          <video controls class="rounded-xl w-full border-4 border-light-blue" poster="https://placehold.co/600x337/87CEFA/FFFFFF">
+            <source src="video2.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105">
+          <p class="text-center font-extrabold mb-4 text-light-blue text-xl">Video 3: Teacher’s Note 🍎</p>
+          <video controls class="rounded-xl w-full border-4 border-bright-pink" poster="https://placehold.co/600x337/FF69B4/FFFFFF">
+            <source src="video3.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+  </main>
 
-            <div id="visible-images" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:rotate-1">
-                    <img src="image1.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
-                    <p class="p-4 text-center font-bold text-bright-pink">Image 1: Wishing you well! 🎉</p>
-                </div>
-                <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:-rotate-1">
-                    <img src="image2.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
-                    <p class="p-4 text-center font-bold text-light-blue">Image 2: Can't wait for you back! 🥳</p>
-                </div>
-                <div class="bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl hover:rotate-1">
-                    <img src="image3.png" alt="A classroom photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-light-blue">
-                    <p class="p-4 text-center font-bold text-bright-pink">Image 3: Sending a virtual hug! 🤗</p>
-                </div>
-            </div>
+  <footer class="bg-gradient-to-r from-bright-pink via-light-blue to-bright-pink text-white text-center py-10 shadow-inner">
+    <p class="text-xl font-bold">We miss you! Get better soon! 💖🌟</p>
+  </footer>
 
-            <div id="hidden-images" class="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-700 ease-in-out" style="display: none;">
-                <script>
-                    const hiddenImagesContainer = document.getElementById('hidden-images');
-                    // New emojis: 🌟 (Star), 🍀 (Clover)
-                    const new_emojis = ['🌟', '🍀'];
-                    const colors = [
-                        { bg: 'light-blue', text: 'bright-pink', border: 'bright-pink', icon: new_emojis[0] },
-                        { bg: 'bright-pink', text: 'light-blue', border: 'light-blue', icon: new_emojis[1] }
-                    ];
-                    for (let i = 4; i <= 10; i++) {
-                        const file = `image${i}.png`;
-                        const style = colors[i % 2]; // Alternate colors
-                        const card = document.createElement('div');
-                        card.className = `bg-white-bg rounded-2xl p-4 shadow-xl border-4 border-${style.border} transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl ${i % 2 === 0 ? 'hover:rotate-1' : 'hover:-rotate-1'}`;
-                        card.innerHTML = `
-                            <img src="${file}" alt="Class photo placeholder" class="w-full h-48 object-cover rounded-xl border-2 border-${style.border}">
-                            <p class="p-4 text-center font-bold text-${style.text}">Image ${i}: Get well soon! ${style.icon}</p>
-                        `;
-                        hiddenImagesContainer.appendChild(card);
-                    }
-                </script>
-            </div>
-
-            <div class="text-center mt-12">
-                <button id="toggle-button" onclick="toggleImages()"
-                    class="bg-light-blue text-text-dark font-extrabold py-4 px-10 rounded-full shadow-2xl hover:bg-bright-pink hover:text-white transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-bright-pink focus:ring-opacity-50 text-lg border-4 border-light-blue hover:border-light-blue">
-                    Show 7 More Wishes ✨
-                </button>
-            </div>
-        </section>
-
-        <hr class="my-20 border-light-blue border-4 border-dashed rounded-full">
-
-        <section>
-            <h2 class="text-4xl font-extrabold text-center mb-12 text-bright-pink">
-                <span class="section-header border-b-4 border-light-blue pb-1">Video Messages & Fun</span>
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-light-blue transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
-                    <p class="text-center font-extrabold mb-3 text-light-blue text-xl">Video 1: Get Well Message 💌</p>
-                    <div class="video-container">
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/FF69B4/FFFFFF">
-                            <source src="video1.mp4" type="video/mp4">
-                            Your browser does not support the video tag. Please upload video1.mp4.
-                        </video>
-                    </div>
-                </div>
-
-                <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-bright-pink transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
-                    <p class="text-center font-extrabold mb-3 text-bright-pink text-xl">Video 2: Class Fun 🤸</p>
-                    <div class="video-container" style="border-color: var(--tw-colors-bright-pink);">
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/87CEFA/FFFFFF">
-                            <source src="video2.mp4" type="video/mp4">
-                            Your browser does not support the video tag. Please upload video2.mp4.
-                        </video>
-                    </div>
-                </div>
-
-                <div class="bg-white-bg rounded-2xl shadow-xl p-5 border-4 border-light-blue transform transition duration-500 hover:scale-[1.03] hover:shadow-2xl">
-                    <p class="text-center font-extrabold mb-3 text-light-blue text-xl">Video 3: Teacher's Note 🍎</p>
-                    <div class="video-container">
-                        <video controls class="w-full h-full" poster="https://placehold.co/600x337/FF69B4/FFFFFF">
-                            <source src="video3.mp4" type="video/mp4">
-                            Your browser does not support the video tag. Please upload video3.mp4.
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-bright-pink text-white mt-20 py-8 text-center shadow-inner">
-        <p class="text-lg font-bold">We miss you! Get better soon! 💖🌟</p>
-    </footer>
-
-    <script>
-        /**
-         * Toggles the visibility of the hidden images section.
-         */
-        function toggleImages() {
-            const hiddenImages = document.getElementById('hidden-images');
-            const button = document.getElementById('toggle-button');
-            const isHidden = hiddenImages.style.display === 'none' || hiddenImages.style.display === '';
-
-            if (isHidden) {
-                // Show the images
-                hiddenImages.style.display = 'grid';
-                button.textContent = 'Hide Extra Wishes 🙈';
-                // Optional: Scroll to the revealed section
-                hiddenImages.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                // Hide the images
-                hiddenImages.style.display = 'none';
-                button.textContent = 'Show 7 More Wishes ✨';
-                // Optional: Scroll back up to the button
-                button.scrollIntoView({ behavior: 'smooth', block: 'end' });
-            }
-        }
-    </script>
+  <script>
+    function toggleImages() {
+      const btn = document.getElementById('toggle-button');
+      btn.textContent = btn.textContent.includes('Show')
+        ? 'Hide Extra Wishes 🙈'
+        : 'Show 7 More Wishes ✨';
+    }
+  </script>
 </body>
 </html>
