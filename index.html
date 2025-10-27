@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>We Miss You Keamogetswe 💖</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -27,62 +27,24 @@
       }
     }
   </script>
+
   <style>
     body {
       background: radial-gradient(circle at top left, #fff0f7, #fdfaff 40%, #e0f7ff);
       overflow-x: hidden;
     }
-
-    /* Floating hearts */
-    .floating-heart {
-      position: absolute;
-      font-size: 1.5rem;
-      opacity: 0.7;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-      50% { transform: translateY(-40px) rotate(10deg); opacity: 1; }
-      100% { transform: translateY(0) rotate(-10deg); opacity: 0.8; }
-    }
-
-    /* Glassy card */
-    .glass {
-      background: rgba(255, 255, 255, 0.55);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    /* Soft fade-in */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 1s ease forwards;
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Floating icons gently moving */
-    .floaty {
-      animation: gentleFloat 8s ease-in-out infinite;
-    }
-
-    @keyframes gentleFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+    .floating-heart { position: absolute; font-size: 1.5rem; opacity: 0.7; animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0% { transform: translateY(0) rotate(0deg); opacity: 0.8; } 50% { transform: translateY(-40px) rotate(10deg); opacity: 1; } 100% { transform: translateY(0) rotate(-10deg); opacity: 0.8; } }
+    .glass { background: rgba(255,255,255,0.55); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
+    .fade-in { opacity: 0; transform: translateY(30px); animation: fadeUp 1s ease forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .shadow-glow { box-shadow: 0 15px 40px rgba(218, 112, 214, 0.12); }
   </style>
 </head>
 <body class="font-body text-gray-800 relative overflow-x-hidden">
 
-  <!-- Animated Background Decorations -->
-  <div class="absolute inset-0 overflow-hidden">
+  <!-- Decorations -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <div class="floating-heart left-10 top-20 text-pink-400">💖</div>
     <div class="floating-heart right-12 top-32 text-blue-300">🌈</div>
     <div class="floating-heart left-1/3 bottom-10 text-pink-300">💞</div>
@@ -90,9 +52,7 @@
 
   <!-- Header -->
   <header class="relative text-center py-20 bg-gradient-to-r from-bright-pink via-light-blue to-bright-pink text-white shadow-2xl">
-    <h1 class="text-5xl sm:text-6xl font-header mb-6 drop-shadow-lg fade-in">
-      We Miss You, Keamogetswe 💖
-    </h1>
+    <h1 class="text-5xl sm:text-6xl font-header mb-6 drop-shadow-lg fade-in">We Miss You, Keamogetswe 💖</h1>
     <p class="text-xl sm:text-2xl opacity-90 font-light fade-in">
       The whole classroom is thinking of you and wishing you a <span class="font-bold">speedy recovery!</span> 🌸
     </p>
@@ -111,31 +71,36 @@
         <span class="inline-block relative">📸 Photos from the Classroom</span>
       </h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:shadow-2xl hover:rotate-1">
-          <img src="image1.png" class="rounded-2xl w-full h-56 object-cover border-4 border-light-blue">
+      <div id="visible-images" class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:rotate-1">
+          <img src="image1.png" class="rounded-2xl w-full h-56 object-cover border-4 border-light-blue" alt="Image 1">
           <p class="text-center mt-4 text-bright-pink font-bold text-lg">Image 1: Wishing you well! 🎉</p>
         </div>
-        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:shadow-2xl hover:-rotate-1">
-          <img src="image2.png" class="rounded-2xl w-full h-56 object-cover border-4 border-bright-pink">
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:-rotate-1">
+          <img src="image2.png" class="rounded-2xl w-full h-56 object-cover border-4 border-bright-pink" alt="Image 2">
           <p class="text-center mt-4 text-light-blue font-bold text-lg">Image 2: Can’t wait for you back! 🥳</p>
         </div>
-        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:shadow-2xl hover:rotate-1">
-          <img src="image3.png" class="rounded-2xl w-full h-56 object-cover border-4 border-light-blue">
+        <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 hover:rotate-1">
+          <img src="image3.png" class="rounded-2xl w-full h-56 object-cover border-4 border-light-blue" alt="Image 3">
           <p class="text-center mt-4 text-bright-pink font-bold text-lg">Image 3: Sending a virtual hug! 🤗</p>
         </div>
       </div>
 
+      <!-- Hidden images grid: starts hidden -->
+      <div id="hidden-images" class="hidden grid-cols-1 md:grid-cols-3 gap-10 mt-10 transition-all duration-500 ease-in-out"></div>
+
       <div class="text-center mt-14">
         <button id="toggle-button"
-          onclick="toggleImages()"
-          class="bg-gradient-to-r from-light-blue to-bright-pink text-white font-bold py-4 px-10 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-110 transition duration-300 border-2 border-white">
+                aria-expanded="false"
+                class="bg-gradient-to-r from-light-blue to-bright-pink text-white font-bold py-4 px-10 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-110 transition duration-300 border-2 border-white">
           Show 7 More Wishes ✨
         </button>
       </div>
     </section>
 
-    <!-- Video Section -->
+    <hr class="my-12 border-light-blue border-2 border-dashed rounded-full">
+
+    <!-- Videos Section -->
     <section class="fade-in">
       <h2 class="text-4xl sm:text-5xl font-extrabold text-center text-light-blue mb-14">
         <span class="inline-block relative">🎥 Video Messages & Fun</span>
@@ -162,6 +127,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="bg-gradient-to-r from-bright-pink via-light-blue to-bright-pink text-white text-center py-10 shadow-inner">
@@ -169,12 +135,79 @@
   </footer>
 
   <script>
-    function toggleImages() {
+    /**
+     * Populate hidden images 4..10 once and toggle visibility.
+     * Uses Tailwind classes 'hidden' <-> 'grid' to show/hide.
+     */
+    (function () {
+      const hiddenContainer = document.getElementById('hidden-images');
       const btn = document.getElementById('toggle-button');
-      btn.textContent = btn.textContent.includes('Show')
-        ? 'Hide Extra Wishes 🙈'
-        : 'Show 7 More Wishes ✨';
-    }
+      let populated = false;
+
+      const cardTemplate = (i, icon, styleIndex) => {
+        // alternate styles
+        const border = styleIndex % 2 === 0 ? 'border-bright-pink' : 'border-light-blue';
+        const textColor = styleIndex % 2 === 0 ? 'text-bright-pink' : 'text-light-blue';
+        const hoverRotate = styleIndex % 2 === 0 ? 'hover:rotate-1' : 'hover:-rotate-1';
+        const file = `image${i}.png`;
+        // fallback placeholder if not present - keep same structure
+        return `
+          <div class="glass rounded-3xl p-5 shadow-glow transform transition duration-500 hover:scale-105 ${hoverRotate}">
+            <img src="${file}" alt="Image ${i}" class="rounded-2xl w-full h-56 object-cover border-4 ${border}">
+            <p class="text-center mt-4 ${textColor} font-bold text-lg">Image ${i}: Get well soon! ${icon}</p>
+          </div>
+        `;
+      };
+
+      function populateHiddenImages() {
+        if (populated) return;
+        const emojis = ['🌟','🍀','✨','🎈','💫','🌸','🤗'];
+        const frag = document.createDocumentFragment();
+        // We'll create 7 images: 4..10 inclusive
+        for (let i = 4; i <= 10; i++) {
+          const wrapper = document.createElement('div');
+          // Use innerHTML from template and then append
+          wrapper.innerHTML = cardTemplate(i, emojis[(i-4) % emojis.length], i);
+          frag.appendChild(wrapper.firstElementChild);
+        }
+        hiddenContainer.appendChild(frag);
+        populated = true;
+      }
+
+      function showHidden() {
+        // Use grid classes for layout
+        hiddenContainer.classList.remove('hidden');
+        hiddenContainer.classList.add('grid');
+        // ensure columns respond at md breakpoint
+        hiddenContainer.classList.add('grid-cols-1','md:grid-cols-3','gap-10','mt-10');
+        btn.textContent = 'Hide Extra Wishes 🙈';
+        btn.setAttribute('aria-expanded', 'true');
+        // scroll smoothly to reveal section
+        hiddenContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function hideHidden() {
+        hiddenContainer.classList.remove('grid');
+        hiddenContainer.classList.add('hidden');
+        btn.textContent = 'Show 7 More Wishes ✨';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      window.toggleImages = function () {
+        const isHidden = hiddenContainer.classList.contains('hidden');
+        if (isHidden) {
+          populateHiddenImages();
+          // a slight delay to allow DOM insertion before scroll / layout
+          requestAnimationFrame(() => showHidden());
+        } else {
+          hideHidden();
+        }
+      };
+
+      // graceful fallback: if JS is disabled, show a note (you can remove if not needed)
+      // (No action needed; hidden by default)
+    })();
   </script>
 </body>
 </html>
